@@ -15,6 +15,7 @@ export default class FormLogin extends React.PureComponent {
     }
     
     sendForm = (e) => {
+        e.preventDefault()
         if (!this.state.email && !this.state.password)
             this.setState({error: {email: true,password: true}})
         else if(!this.state.email)
@@ -28,8 +29,11 @@ export default class FormLogin extends React.PureComponent {
                     }
                 }
             )
-        e.preventDefault()
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps)
+    // }
 
     componentDidUpdate() {
             if (this.state.error.email)
@@ -39,6 +43,7 @@ export default class FormLogin extends React.PureComponent {
             else if(this.state.error.email && this.state.error.password) 
                 setTimeout(() => {this.setState({error: {password: false,email: false}})},3000)
     }
+    
     
     render() {
         const {email,password} = this.state.error

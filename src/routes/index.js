@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Switch} from 'react-router-dom'
-import { connect } from 'react-redux'
 import {routes, RoutesComponent} from './config'
-import {Navbars} from '../components/navbars'
-import { checkAuth } from '../actions';
+import Navbars from '../components/navbars'
 class MainRoutes extends Component {
 
      constructor(props) {
@@ -13,24 +11,9 @@ class MainRoutes extends Component {
         }
     }
 
-    componentWillMount = () => {
-      this.props.isAuth()
-    };
-    
-     componentDidMount = () => {
-         new Promise((resolve, reject) => {
-                 resolve(this.props.auth !== undefined)
-                 reject(this.props.error)
-             })
-             // .then(res => console.log(res))
-             .then(res => res ? 
-                            this.setState({error: false},() => console.log(this.state.error))
-                            :
-                            this.setState({error: true})
-                 
-             )
-             .catch(err => console.log(err))
-     }
+    componentWillReceiveProps(nextProps) {
+        nextProps.user.error ? this.setState({error: true}) : this.setState({error: false})
+    }
 
     render() {
         return (
@@ -41,36 +24,20 @@ class MainRoutes extends Component {
                                             :
                                             <Navbars/>
                     }
-                    <Switch>
-                        {
-                            routes.map((route, i) => (
-                                <RoutesComponent
-                                    key={i}
-                                    {...route}
-                                />
-                            ))
-                        }
-                    </Switch>
+                    {
+                        routes.map((route, i) => (
+                            <RoutesComponent
+                                key={i}
+                                {...route}
+                                props={this.props}
+                            />
+                        ))
+                    }
                 </div>
             </Router>
         )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.userReducers.auth,
-        user: state.userReducers.user,
-        error: state.userReducers.error
-    }
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        isAuth: () => {
-            return dispatch(checkAuth())
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainRoutes)
+export default MainRoutes

@@ -3,16 +3,7 @@ import {Route} from 'react-router-dom'
 import Dashboard from "@/pages/dashboard";
 import Login from "@/pages/login";
 import {checkAuthenticated} from '../utils/authorization'
-import { MCard,MSkill } from '../components/dashboard';
-
-const PageNotFound = (props) => {
-
-    return (
-        <div>
-            404 page not found
-        </div>
-    )
-}
+import { MCard,MProfile, MSkill } from '../components/dashboard';
 
 export const routes = [
     {
@@ -21,39 +12,47 @@ export const routes = [
         exact: true
     },
     {
-        path: '/dashboard',
-        component: checkAuthenticated(Dashboard),
-    },
-    {
         path: '/login',
         component: Login
     },
     {
-        path: '/about',
-        component: checkAuthenticated(MSkill),
+        path: '/dashboard',
+        component: checkAuthenticated(MProfile),
         routes: [
             {
-                path: '/about/skill',
-                component: checkAuthenticated(MCard)
+                path: '/dashboard',
+                component: checkAuthenticated(MCard),
+                exact: true
+            },
+            {
+                path: '/dashboard/about-me',
+                component: checkAuthenticated(MCard),
+                exact: true
+            },
+            {
+                path: '/dashboard/skill',
+                component: checkAuthenticated(MSkill),
+                exact: true
             }
         ]
-    },
-    {
-        component: PageNotFound
-    }
+    }    
 ]
 
-export const RoutesComponent = route => {
+export const RoutesComponent = (route) => {
+    // console.log(route.props)
     return (
         <Route 
             exact={route.exact ? route.exact : false}
             path={route.path} 
-            render={props => (
-                <route.component 
-                    {...props}
-                    routes={route.routes}
-                />
-            )}
+            render={props => { 
+                const myprops = Object.assign(props, route.props)
+                return (
+                    <route.component 
+                        {...myprops}
+                        routes={route.routes}
+                    /> 
+                )
+            }}
         />
     )
 }

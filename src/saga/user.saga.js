@@ -1,21 +1,20 @@
 import {put, call, takeLatest} from 'redux-saga/effects'
 import {SUCCESS_AUTH, FAILED_AUTH,USER_AUTH, AUTHORIZATION, UNAUTHORIZATION, CHECK_AUTH} from '../types'
 import {authUser, checkAuthentication} from './api'
-import {Redirect} from 'react-router-dom'
 
 function* login(action) {
     try {
         const {response, error} = yield call(authUser,action.payload)
         if(response) {
             yield put({type: SUCCESS_AUTH, response})         
-            window.location.reload()
+            window.location.replace('/')
         } else {
-            console.log('error')
             yield put({type: FAILED_AUTH, error: error.response})
         }
 
     } catch(error) {
-        console.log(error)
+        console.log('error')
+        yield put({type: FAILED_AUTH, error: error.response})        
     }
 }
 

@@ -8,6 +8,7 @@ const userReducers = (state = {}, action) => {
                 payload: action.payload
             }
         case FAILED_AUTH :
+            // console.log(action)
             return {
                 ...state,
                 error: action.error
@@ -19,6 +20,7 @@ const userReducers = (state = {}, action) => {
                 ...state,
                 auth: action.response
             }
+            
         case UNAUTHORIZATION :
             return {
                 ...state,

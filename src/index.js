@@ -9,7 +9,11 @@ import ReactDOM from 'react-dom';
 import App from './app'
 import './assets/scss/main.scss'
 
+import {Provider} from 'react-redux'
+import {store} from './store'
 
 ReactDOM.render(
-    <App></App>
+    <Provider store={store}>
+        <App/>
+    </Provider>
 , document.getElementById('root'));

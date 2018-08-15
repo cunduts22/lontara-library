@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
 import {Form} from '@/components/login'
-import {connect} from 'react-redux'
-import { checkAuth, userLogin } from '../actions'
+
 
 class Login extends Component {
 
@@ -10,42 +8,37 @@ class Login extends Component {
         super(props)
         this.state = {
             error: {},
-            auth: {}
+            loading: true
         }
     }
     
-    componentWillMount() {
-        this.props.isAuth()
-    }
-    
     componentWillReceiveProps(nextProps) {
-        !!nextProps.error ? this.setState({
+        const { from } = this.props.location.state || { from: { pathname: "/" }}
+        !!nextProps.user.error ? this.setState({
             error: {
-                message: nextProps.error.message ? nextProps.error.message : nextProps.error.data.message
-            }
-        }) : this.setState({auth: nextProps.auth})
+                message: nextProps.user.error.message ? nextProps.user.error.message : nextProps.user.error.data.message
+            },
+            loading: false
+        }) : this.props.history.replace(from.pathname) //this.setState({auth: nextProps.user.auth})
     }
-   componentWillUpdate = (nextProps, nextState) => {
-       const { from } = this.props.location.state || {from: {pathname: "/"}}
-       console.log(nextState)
-       if(nextState.auth !== undefined) {
-            this.checkAuthorization(
-                this.props.history.replace(from.pathname)
-            )
-       } else {
-           return null
-       }
-   };
-
-   checkAuthorization(cb) {
-        return setTimeout(cb, 100)
-   }
 
     getForm({payload}) {
         this.props.onLogin(payload)
     }
 
+    // componentDidMount = () => {
+    //     setTimeout(() => {
+    //         this.setState({
+    //             loading: false
+    //         })
+    //     },100)
+    // };
+    
+
     render() {
+        if(this.state.loading) {
+            return <div className="display-4 text-center">Loading ....</div>
+        }
         return (
             <div className="card">
                 <div className="card-body">
@@ -64,22 +57,4 @@ class Login extends Component {
     }
 }
 
-const mapStateProps = (state) => {
-    return {
-        error: state.userReducers.error,
-        auth: state.userReducers.auth
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        isAuth: () => {
-            return dispatch(checkAuth())
-        },
-        onLogin: (payload) => {
-            dispatch(userLogin(payload))
-        }
-    }
-}
-
-export default connect(mapStateProps, mapDispatchToProps)(Login)
+export default Login

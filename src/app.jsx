@@ -1,15 +1,40 @@
 import React, { Component } from 'react'
 import MainRoutes from '@/routes'
-import {Provider} from 'react-redux'
-import {store} from './store'
-export default class App extends Component {
+import {connect} from 'react-redux'
+import { checkAuth, userLogin } from './actions';
+
+class App extends Component {
+
+  componentWillMount() {
+    this.props.isAuth()
+  }
+
   render() {
     return (
-      <Provider store={store}>
         <div className="container">
-          <MainRoutes/>
+          <MainRoutes {...this.props}/>
         </div>
-      </Provider>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: {
+      ...state.userReducers
+    },
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    isAuth: () => {
+      return dispatch(checkAuth())
+    },
+    onLogin: (payload) => {
+      return dispatch(userLogin(payload))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

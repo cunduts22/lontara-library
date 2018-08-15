@@ -25,7 +25,7 @@ export const authSuccess = (response) => {
 export const authFailed = (error) => {
     return {
         type: FAILED_AUTH,
-        error: error.response
+        error
     }
 }
 

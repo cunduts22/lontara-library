@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const MyCard = (props) => {
-    console.log(props)
     return (
         <div className="card" style={{border: 'none'}}>
             <div className="card-body">

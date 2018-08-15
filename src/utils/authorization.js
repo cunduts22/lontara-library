@@ -1,39 +1,33 @@
 import React from 'react';
-import {withRouter, Redirect} from 'react-router-dom'
-
-import {connect} from 'react-redux'
-import {checkAuth} from '../actions'
-
+import {withRouter} from 'react-router-dom'
 
 export const checkAuthenticated = (Component) => {
-    return (connect(mapStateProps, mapDispatchToProps)(withRouter(class AuthWrapped extends React.Component {
+    return (withRouter(class AuthWrapped extends React.Component {
         constructor(props) {
             super(props);
         }
-        componentWillMount() {
-            this.props.isAuth()
-        }         
         
-        onLogout() {
-            localStorage.clear()
-            location.reload()
+        componentDidMount = () => {
+            this.checkAutorization()
         }
 
-        componentDidMount = () => {
-          new Promise((resolve, reject) => {
-            resolve(this.props.auth !== undefined)
-            reject(this.props.error)
-          })
-            // .then(res => console.log(res))
-            .then(res => res ?  null 
-                                : 
-                                this.props.history.replace({
-                                    pathname: '/login',
-                                    state: { from: this.props.location }
-                                })
-            )
-          .catch(err => console.log(err))
+        checkAutorization() {
+            new Promise((resolve, reject) => {
+                    resolve(this.props.user)
+                    reject(this.props.user.error)
+                })
+                .then(res => !!res.auth ? null :
+                    this.props.history.replace({
+                        pathname: '/login',
+                        state: {
+                            from: this.props.location
+                        }
+                    })
+                )
+                .catch(err => console.log(err))
+
         }
+
         render() {
             return (
                 <Component
@@ -41,21 +35,5 @@ export const checkAuthenticated = (Component) => {
                 />
             )
         }
-    })));
-}
-
-const mapStateProps = (state) => {
-    return {
-        auth: state.userReducers.auth,
-        user: state.userReducers.user,
-        error: state.userReducers.error
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {        
-        isAuth: () => {
-            return dispatch(checkAuth())
-        }
-    }
+    }));
 }
