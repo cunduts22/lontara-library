@@ -1,0 +1,6 @@
+export const USER_AUTH = "USER_AUTH"
+export const SUCCESS_AUTH = "SUCCESS_AUTH"
+export const FAILED_AUTH = "FAILED_AUTH"
+export const CHECK_AUTH = "CHECK_AUTH"
+export const AUTHORIZATION = "AUTHORIZATION"
+export const UNAUTHORIZATION = "UNAUTHORIZATION"
