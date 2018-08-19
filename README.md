@@ -17,7 +17,7 @@ yield call
 `example`
 yield call(<getBooks,search>) `this method do like` getBooks(search)
 `first parameter is our function <getBooks>, 
-then second parameter is our value we want to pass to <getBooks> function <search>`
+then second parameter is our value we want to pass to <getBooks> function`
 yield put
 `will trigger action where action have` type = @param type
 @param {*} action <= return type `and` data `,
@@ -48,5 +48,7 @@ yield all (@param array and fork(@param ourSagaMethod))
 > ```
 > where state from actions
 # MapDispatchToProps
-* @param dispatch, where dispatch as function from connect => module react-redux
-* dispatch (@param our action)
+>```javascript
+> @param dispatch, where dispatch as function from connect => module react-redux
+>```
+> dispatch (@param our action)
