@@ -1,5 +1,5 @@
-# React-Redux-Saga
-Lontara Library App with redux saga
+# Lontara Library App
+### React-Redux-Saga
 
 # Install
 > ### NPM
