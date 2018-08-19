@@ -3,7 +3,8 @@ import {Route} from 'react-router-dom'
 import Dashboard from "@/pages/dashboard";
 import Login from "@/pages/login";
 import {checkAuthenticated} from '../utils/authorization'
-import { MCard,MProfile, MSkill } from '../components/dashboard';
+import { MyCard,Profile, Skill } from '../components/dashboard';
+import { EditProfile } from '../components/setting';
 
 export const routes = [
     {
@@ -17,40 +18,48 @@ export const routes = [
     },
     {
         path: '/dashboard',
-        component: checkAuthenticated(MProfile),
+        component: checkAuthenticated(Profile),
         routes: [
             {
                 path: '/dashboard',
-                component: checkAuthenticated(MCard),
+                component: MyCard,
                 exact: true
             },
             {
                 path: '/dashboard/about-me',
-                component: checkAuthenticated(MCard),
-                exact: true
+                component: MyCard,
+                exact: true,
             },
             {
                 path: '/dashboard/skill',
-                component: checkAuthenticated(MSkill),
+                component: Skill,
+                exact: true,
+            },
+            {
+                path: '/dashboard/edit-profile',
+                component: EditProfile,
                 exact: true
             }
         ]
-    }    
+    }
 ]
 
 export const RoutesComponent = (route) => {
-    // console.log(route.props)
+    // console.log(route)
     return (
-        <Route 
-            exact={route.exact ? route.exact : false}
-            path={route.path} 
-            render={props => { 
-                const myprops = Object.assign(props, route.props)
+        <Route
+        exact={route.exact ? route.exact : false}
+        path={route.path} 
+        render={props => {
+                // const state = {}
+                // Object.assign(state,{...route},{...route.props}, {...props})
                 return (
-                    <route.component 
-                        {...myprops}
+                    <route.component
+                        {...props}
+                        {...route}
+                        {...route.props}
                         routes={route.routes}
-                    /> 
+                    />
                 )
             }}
         />

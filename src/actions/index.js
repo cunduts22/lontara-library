@@ -1,24 +1,17 @@
 import { 
     USER_AUTH, 
-    SUCCESS_AUTH, 
-    FAILED_AUTH, 
-    CHECK_AUTH, 
-    UNAUTHORIZATION, 
-    AUTHORIZATION
+    FAILED_AUTH,
+    USER_DATA,
+    FETCH_USER,
+    FAIL_FETCH_USER,
+    IMAGES_UPLOAD,
+    EDIT_USER
 } from '../types'
 
 export const userLogin = (payload) => {
     return {
         type: USER_AUTH,
         payload
-    }
-}
-
-export const authSuccess = (response) => {
-    console.log(response)
-    return {
-        type: SUCCESS_AUTH,
-        response
     }
 }
 
@@ -29,23 +22,36 @@ export const authFailed = (error) => {
     }
 }
 
-export const checkAuth = () => {
+export const getData = (response) => {
     return {
-        type: CHECK_AUTH
+        type: USER_DATA,
+        response
     }
 }
 
-export const notAuth = (error) => {
+export const fetchUser = () => {
     return {
-        type: UNAUTHORIZATION,
+        type: FETCH_USER
+    }
+}
+
+export const failFetchUser = (error) => {
+    return {
+        type: FAIL_FETCH_USER,
         error
     }
 }
 
-export const authenticated = (response) => {
-    console.log(response)
+export const fetchImages = (payload) => {
     return {
-        type: AUTHORIZATION,
-        response
+        type: IMAGES_UPLOAD,
+        payload
+    }
+}
+
+export const editUserProfile = (payload) => {
+    return {
+        type: EDIT_USER,
+        payload
     }
 }

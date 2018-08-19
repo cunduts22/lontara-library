@@ -39,8 +39,7 @@ module.exports = {
                 loader: "babel-loader?cacheDirectory"
             }, {
                 loader: "source-map-loader"
-            }, ],
-            enforce: "pre"
+            }, ]
         }, {
             test: /\.(png|jpe?g|gif|ico|svg)$/i,
             use: [{
@@ -64,8 +63,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src/index.html'),
             filename: 'index.html',
-            inject: 'body'         
-        }),
+            inject: 'body'
+        })
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),

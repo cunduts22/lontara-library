@@ -6,26 +6,20 @@ export const checkAuthenticated = (Component) => {
         constructor(props) {
             super(props);
         }
-        
-        componentDidMount = () => {
-            this.checkAutorization()
-        }
 
-        checkAutorization() {
-            new Promise((resolve, reject) => {
-                    resolve(this.props.user)
-                    reject(this.props.user.error)
-                })
-                .then(res => !!res.auth ? null :
-                    this.props.history.replace({
-                        pathname: '/login',
-                        state: {
-                            from: this.props.location
-                        }
-                    })
-                )
-                .catch(err => console.log(err))
-
+        componentWillReceiveProps(nextProps) {
+            if(nextProps.error.response) {
+                // console.log(nextProps.error)
+                const {status} = nextProps.error.response
+                status === 401 ? this.props.history.replace({
+                    pathname: '/login',
+                    state: {
+                        from: this.props.location
+                    }
+                }) : null
+            } else {
+                return null
+            }
         }
 
         render() {

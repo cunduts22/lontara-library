@@ -1,0 +1,29 @@
+.images-src {
+    cursor: -webkit-grab;
+    .images-files {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        padding: 31% 0 42% 0;
+        top: 48%;
+        left: 53%;
+        font-size: 12px;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+.images-src:hover {
+    .images {
+        opacity: 0.3;
+    }
+    .images-files {
+        opacity: 1;
+        width: auto;
+        overflow: hidden;
+        height: auto;
+    }
+}

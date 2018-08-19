@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import MainRoutes from '@/routes'
 import {connect} from 'react-redux'
-import { checkAuth, userLogin } from './actions';
-
+import { userLogin, fetchUser, fetchImages, editUserProfile } from './actions';
 class App extends Component {
 
-  componentWillMount() {
-    this.props.isAuth()
+  componentDidMount() {
+    this.props.onFetchUser()
   }
 
   render() {
@@ -21,18 +20,28 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     user: {
-      ...state.userReducers
+      ...state.userReducers.data
     },
+    error: {
+      ...state.userReducers.error
+    }
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    isAuth: () => {
-      return dispatch(checkAuth())
-    },
     onLogin: (payload) => {
       return dispatch(userLogin(payload))
+    },
+    onFetchUser: () => {
+      return dispatch(fetchUser())
+    },
+    onUploadImages: (payload) => {
+      return dispatch(fetchImages(payload))
+    },
+    onEditUser: (payload) => {
+      // console.log(payload)
+      return dispatch(editUserProfile(payload))
     }
   }
 }

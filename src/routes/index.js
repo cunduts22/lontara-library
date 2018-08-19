@@ -13,6 +13,7 @@ class MainRoutes extends Component {
 
     componentWillReceiveProps(nextProps) {
         nextProps.user.error ? this.setState({error: true}) : this.setState({error: false})
+        // console.log(nextProps.user.error.response.status)
     }
 
     render() {
@@ -22,14 +23,14 @@ class MainRoutes extends Component {
                     {
                         this.state.error ?  null
                                             :
-                                            <Navbars/>
+                                            <Navbars {...this.props}/>
                     }
                     {
                         routes.map((route, i) => (
                             <RoutesComponent
                                 key={i}
                                 {...route}
-                                props={this.props}
+                                {...this.props}
                             />
                         ))
                     }
