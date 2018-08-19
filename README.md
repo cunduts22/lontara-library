@@ -15,7 +15,7 @@ yield takeLatest(@param type, @param method),
 yield call
 `is saga effect function to wait response from our api function or this is javascript Promise`
 `example`
-yield call(<getBooks,search>) `this method do like` getBooks(search)
+yield call(getBooks,search) `this method do like` getBooks(search)
 `first parameter is our function <getBooks>, 
 then second parameter is our value we want to pass to <getBooks> function`
 yield put
