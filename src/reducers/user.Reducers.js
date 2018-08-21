@@ -1,4 +1,11 @@
-import { USER_AUTH, FAILED_AUTH, USER_DATA, FAIL_FETCH_USER } from "../types";
+import {
+    USER_AUTH,
+    FAILED_AUTH,
+    USER_DATA,
+    FAIL_FETCH_USER,
+    FETCH_SUCCESS,
+    CLEAR_PROGRESS
+} from "../types";
 
 const userReducers = (state = {}, action) => {
     switch (action.type) {
@@ -21,6 +28,18 @@ const userReducers = (state = {}, action) => {
             return {
                 ...state,
                 error: action.error
+            }
+        case FETCH_SUCCESS :
+            return {
+                ...state,
+                loading: action.loading,
+                progress: action.progress++
+            }
+        case CLEAR_PROGRESS :
+            return {
+                ...state,
+                loading: action.loading,
+                progress: action.progress
             }
         default : 
             return state

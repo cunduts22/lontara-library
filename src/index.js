@@ -11,9 +11,9 @@ import './assets/scss/main.scss'
 
 import {Provider} from 'react-redux'
 import {store} from './store'
-import { setAxiosHeader } from './utils/helper';
+import { setAxiosConfig } from './utils/helper';
 
-setAxiosHeader()
+setAxiosConfig()
 
 ReactDOM.render(
     <Provider store={store}>

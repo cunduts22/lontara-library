@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form} from '@/components/login'
+import {Form} from '../components/login'
 
 class Login extends Component {
 
@@ -26,7 +26,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="card">
+            <div className="card" style={{margin: '8% 0'}}>
                 <div className="card-body">
                     <h2 className="card-title text-center">
                         Login

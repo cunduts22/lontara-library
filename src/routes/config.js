@@ -4,7 +4,9 @@ import Dashboard from "@/pages/dashboard";
 import Login from "@/pages/login";
 import {checkAuthenticated} from '../utils/authorization'
 import { MyCard,Profile, Skill } from '../components/dashboard';
-import { EditProfile } from '../components/setting';
+import Setting from '../pages/setting';
+import Books from '../pages/books';
+import {BookCard} from '../components/books'
 
 export const routes = [
     {
@@ -15,6 +17,11 @@ export const routes = [
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/edit-profile',
+        component: checkAuthenticated(Setting),
+        exact: true
     },
     {
         path: '/dashboard',
@@ -34,25 +41,27 @@ export const routes = [
                 path: '/dashboard/skill',
                 component: Skill,
                 exact: true,
-            },
-            {
-                path: '/dashboard/edit-profile',
-                component: EditProfile,
-                exact: true
             }
         ]
+    },
+    {
+        path: '/book',
+        component: checkAuthenticated(Books),
+        exact: true,
+    },
+    {
+        path: '/book/:_id',
+        component: checkAuthenticated(BookCard),
+        exact: true
     }
 ]
 
 export const RoutesComponent = (route) => {
-    // console.log(route)
     return (
         <Route
         exact={route.exact ? route.exact : false}
         path={route.path} 
         render={props => {
-                // const state = {}
-                // Object.assign(state,{...route},{...route.props}, {...props})
                 return (
                     <route.component
                         {...props}

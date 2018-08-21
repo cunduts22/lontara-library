@@ -31,10 +31,6 @@ export default class FormLogin extends React.PureComponent {
             )
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps)
-    // }
-
     componentDidUpdate() {
             if (this.state.error.email)
                 setTimeout(() => {this.setState({error: {email: false}})},3000)
@@ -51,12 +47,17 @@ export default class FormLogin extends React.PureComponent {
             <div className="card">
                 <div className="card-body">
                     <div className="text-danger text-center">
-                        {this.props.error ? this.props.error.message : null }
+                        {
+                            this.state.error ? 
+                                this.props.error.message !== 'failed authenticated' ? 
+                                    this.props.error.message : null
+                                : null 
+                        }
                     </div>
                     <form className="form" onSubmit={this.sendForm.bind(this)}>
                         <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input 
+                                <input
                                     type="email" 
                                     className="form-control" 
                                     aria-describedby="emailHelp" 
@@ -64,13 +65,13 @@ export default class FormLogin extends React.PureComponent {
                                     name="email"
                                     style={{borderColor: email ? 'red' : null}}
                                     onChange={this.onChangeForm.bind(this)}
-                                />                            
-                                {   
+                                />
+                                {
                                     email ? 
                                     <small className="form-text text-danger">Email is Required</small>                                    
                                     :
                                     <small className="form-text text-muted">We'll never share your email with anyone else.</small> 
-                                }                            
+                                }
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Password</label>
@@ -82,13 +83,13 @@ export default class FormLogin extends React.PureComponent {
                                     style={{borderColor: password ? 'red' : null}}
                                     onChange={this.onChangeForm.bind(this)}
                                 />
-                                {   
+                                {
                                     password ? 
                                     <small className="form-text text-danger">Password is Required</small>                                    
                                     :
                                     null
                                 } 
-                            </div>              
+                            </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>

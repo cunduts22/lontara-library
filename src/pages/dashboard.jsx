@@ -30,7 +30,7 @@ class Dashboard extends Component {
             </div>
             <div className="card-footer">
               <div className="row justify-content-center">
-                <Link to="/dashboard/edit-profile" className="btn btn-info" style={{margin: '10px'}}>
+                <Link to="/edit-profile" className="btn btn-info" style={{margin: '10px'}}>
                   Edit
                 </Link>
                 <button className="btn btn-primary" style={{ margin: "10px" }}>

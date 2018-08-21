@@ -5,7 +5,12 @@ import {
     FETCH_USER,
     FAIL_FETCH_USER,
     IMAGES_UPLOAD,
-    EDIT_USER
+    EDIT_USER,
+    FETCH_SUCCESS,
+    CLEAR_PROGRESS,
+    SUCCESS_FETCH,
+    FETCH_FAILED,
+    FETCH_BOOK
 } from '../types'
 
 export const userLogin = (payload) => {
@@ -53,5 +58,42 @@ export const editUserProfile = (payload) => {
     return {
         type: EDIT_USER,
         payload
+    }
+}
+
+export const fetchSuccess = (progress,loading) => {
+    return {
+        type: FETCH_SUCCESS,
+        progress,
+        loading
+    }
+}
+
+export const clearProgress = (progress,loading) => {
+    return {
+        type: CLEAR_PROGRESS,
+        progress,
+        loading
+    }
+}
+
+export const fetchBook = (pages) => {
+    return {
+        type: FETCH_BOOK,
+        pages
+    }
+}
+
+export const successFetch = (response) => {
+    return {
+        type: SUCCESS_FETCH,
+        response
+    }
+}
+
+export const failedFetch = (error) => {
+    return {
+        type: FETCH_FAILED,
+        error
     }
 }

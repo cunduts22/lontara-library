@@ -30,10 +30,10 @@ export default class EditProfile extends React.Component{
         // console.log(this.state.data !== undefined)
         
         if(this.state.images !== undefined && this.state.data !== undefined) {
-            this.props.onUploadImages(this.state.images)
+            this.props.onUploadImages({images: this.state.images})
             this.props.onEditUser(this.state.data)
         } else if (this.state.data === undefined && this.state.images !== undefined) {
-            this.props.onUploadImages(this.state.images)
+            this.props.onUploadImages({images: this.state.images})
         } else if (this.state.data && this.state.images === undefined) {
                 this.props.onEditUser(this.state.data)
         } else {
@@ -44,13 +44,14 @@ export default class EditProfile extends React.Component{
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            imagesUrl: nextProps.imageUrl,
-            user: nextProps
+            imagesUrl: nextProps.user.imageUrl,
+            users: nextProps.user
         })
     }
 
     render() {
-        const {user} = this.state
+        const {users} = this.state
+        const {user} = this.props
         return (
             <div className="card">
                 <div className="card-body">
@@ -59,30 +60,24 @@ export default class EditProfile extends React.Component{
                 <div className="card-body">
                     <form onSubmit={this.sendData.bind(this)}>
                         <div className="row justify-content-center">
-                            <div className="col-md-6">
+                            <div className="col-md-8">
                                 <div className="form-group">
-                                    <div className="col-md-6">Name</div>
-                                    <div className="col-md-6">
-                                        <input type="text" name="name" className="form-control" defaultValue={user ? user.name : this.props.name} onChange={this.onChange.bind(this)} />
-                                    </div>
+                                    <label>Name</label>
+                                    <input type="text" name="name" className="form-control" defaultValue={users ? users.name : user.name} onChange={this.onChange.bind(this)} />
                                 </div>
                                 <div className="form-group">
-                                    <div className="col-md-6">Email</div>
-                                    <div className="col-md-6">
-                                        <input type="text" name="email" className="form-control" defaultValue={user ? user.email : this.props.email} onChange={this.onChange.bind(this)} />
-                                    </div>
+                                    <label>Email</label>
+                                    <input type="text" name="email" className="form-control" defaultValue={users ? users.email : user.email} onChange={this.onChange.bind(this)} />
                                 </div>
                                 <div className="form-group">
-                                    <div className="col-md-6">Origin</div>
-                                    <div className="col-md-6">
-                                        <input name="origin" type="text" className="form-control" defaultValue={user ? user.origin : this.props.origin} onChange={this.onChange.bind(this)} />
-                                    </div>
+                                    <label>Origin</label>
+                                    <input name="origin" type="text" className="form-control" defaultValue={users ? users.origin : user.origin} onChange={this.onChange.bind(this)} />
                                 </div>
                             </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
+                            <div className="col-md-4">
+                                <div className="form-group d-flex justify-content-center">
                                     <div className="images-src text-center col-md-6">
-                                        <img src={this.state.imagesUrl ? this.state.imagesUrl : this.props.imageUrl} alt="no images" className="img-fluid" style={{ width: "200px" }} />
+                                        <img src={this.state.imagesUrl ? this.state.imagesUrl : this.props.user.imageUrl} alt="no images" className="img-fluid" style={{ width: "200px" }} />
                                         <input type="file" name="images" ref="images" className="text-center images-files" onChange={this.onChangeImages.bind(this)} />
                                     </div>
                                 </div>

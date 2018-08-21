@@ -1,0 +1,35 @@
+.card-in {
+    z-index: 9999;
+    animation-name: cardIn;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+
+.card-out {
+    animation-name: cardOut;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes cardIn {
+    from {
+        transform: translateY(1000px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes cardOut {
+    from {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(1000px);
+        opacity: 0;
+    }
+
+}

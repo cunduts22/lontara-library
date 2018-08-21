@@ -8,9 +8,9 @@ export const checkAuthenticated = (Component) => {
         }
 
         componentWillReceiveProps(nextProps) {
-            if(nextProps.error.response) {
+            if(nextProps.error) {
                 // console.log(nextProps.error)
-                const {status} = nextProps.error.response
+                const {status} = nextProps.error
                 status === 401 ? this.props.history.replace({
                     pathname: '/login',
                     state: {
@@ -24,9 +24,17 @@ export const checkAuthenticated = (Component) => {
 
         render() {
             return (
-                <Component
-                    {...this.props}
-                />
+                this.props.error ?
+                    this.props.error.status === 401 ? null :
+                        <Component
+                            {...this.props}
+                        />
+                : this.props.history.replace({
+                    pathname: '/login',
+                    state: {
+                        from: this.props.location
+                    }
+                })
             )
         }
     }));

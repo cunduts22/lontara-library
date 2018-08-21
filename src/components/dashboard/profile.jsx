@@ -14,7 +14,7 @@ export default class Profile extends React.Component {
             <div className="card">
                 <div className="card-body">
                     <div className="card-header" style={{ padding: '0', backgroundColor: '#fff', borderBottom: 'none' }}>
-                        <ul className="nav nav-tabs justify-content-center" style={{ justifyContent: 'none' }}>
+                        <ul className="nav nav-tabs card-header-tabs justify-content-center" style={{ justifyContent: 'none' }}>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/dashboard/about-me">About Me</NavLink>
                             </li>
@@ -26,7 +26,7 @@ export default class Profile extends React.Component {
                 </div>
                 <div className="card-body">
                     {this.props.routes.map((route,i) => {
-                        return <RoutesComponent key={i} {...route} {...this.props.user} onUploadImages={this.props.onUploadImages} onEditUser={this.props.onEditUser}/>
+                        return <RoutesComponent key={i} {...route} {...this.props.user} />
                     })}
                 </div>
             </div>

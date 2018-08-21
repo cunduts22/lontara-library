@@ -1,29 +1,39 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
 import {routes, RoutesComponent} from './config'
 import Navbars from '../components/navbars'
+import {Footer} from '../components/footer'
 class MainRoutes extends Component {
 
      constructor(props) {
         super(props)
-        this.state = {
-            error: true
-        }
     }
-
-    componentWillReceiveProps(nextProps) {
-        nextProps.user.error ? this.setState({error: true}) : this.setState({error: false})
-        // console.log(nextProps.user.error.response.status)
-    }
-
     render() {
         return (
             <Router>
-                <div>
+                <React.Fragment>
                     {
-                        this.state.error ?  null
-                                            :
-                                            <Navbars {...this.props}/>
+                        this.props.error ? 
+                            this.props.error.status === 401 ?
+                                null : <Navbars {...this.props}/> 
+                            :  <Navbars {...this.props}/> 
+                    }
+                    {
+                        this.props.error ?
+                            this.props.error.status === 401 ? 
+                                null 
+                                :
+                                <div className="nav-books">
+                                    <div className="card">
+                                        <Link to="/book" className="btn btn-info">Find Books</Link>
+                                    </div>
+                                </div>
+                            :
+                                <div className="nav-books">
+                                    <div className="card">
+                                        <Link to="/book" className="btn btn-info">Find Books</Link>
+                                    </div>
+                                </div>
                     }
                     {
                         routes.map((route, i) => (
@@ -34,7 +44,16 @@ class MainRoutes extends Component {
                             />
                         ))
                     }
-                </div>
+                    {
+                        this.props.error ?
+                            this.props.error.status === 401 ? 
+                                null 
+                                :
+                                <Footer/>
+                            :
+                            <Footer/>
+                    }
+                </React.Fragment>
             </Router>
         )
     }

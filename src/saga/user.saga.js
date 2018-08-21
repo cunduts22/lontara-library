@@ -1,6 +1,6 @@
 import {put, call, takeLatest} from 'redux-saga/effects'
 import { FAILED_AUTH,USER_AUTH, USER_DATA, FAIL_FETCH_USER, FETCH_USER, IMAGES_UPLOAD, EDIT_USER} from '../types'
-import {authUser, getUser, changeImages, editUser} from './api'
+import {authUser, getUser, changeImages, editUser} from './user.api'
 
 function* login(action) {
     try {
@@ -10,7 +10,7 @@ function* login(action) {
             window.localStorage.setItem('id', response.data.userId)
             window.location.reload('/')
         } else {
-            yield put({type: FAILED_AUTH, error: error.response})
+            yield put ({type: FAIL_FETCH_USER, error})
         }
 
     } catch(error) {
